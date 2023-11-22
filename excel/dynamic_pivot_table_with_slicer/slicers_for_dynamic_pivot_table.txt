@@ -1,0 +1,14 @@
+
+# Slicers design enables to filter in Pivot Table in more easy and UI way.
+
+
+    How to Insert Slicers Filtering Option in Pivot Table ??
+
+        ==> Inside the "Analyze" excel ribbon tab.
+
+        ==> Click on "Insert Slicer" Icon.
+
+        ==> A "Insert Slicer" dialog box will appear.
+
+        ==> Apply Tick to all those slicer option u want to add for better filtering.
+

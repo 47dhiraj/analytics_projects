@@ -1,0 +1,16 @@
+
+# Shortcuts used for pivot table :
+
+    1) To remove the field from any section of PivotTable Field.
+        ==> Just drag out the fields to empty cell or simply untick the field.
+
+    
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,121 @@
+
+# Things asked by manager to do & way to accomplish that:
+
+
+    1) What's the quantity sold in 2021 by region ?
+
+    # How to do this ? What's the concept behind it ??
+
+        ==> At first, Pivot table ma kun "Field/Column" ko basis ma gropuing garne ho tyo field lai drag garera "Rows" vanni section ma rakhne.
+
+        ==> And then, yedi timali kunai "Field/column" ko each or every breakdown ko data hernu cha vani, tyo field/column lai drag garera "Columns" section ma rakhne
+
+        ==> And then, kun "Field/column" ko values ma kei calculation(eg: sum, average, %) garne ho tyo field/column lai drag garera "Values" section ma rakhne.
+        NOTE: By Default, kunai pani value ko Sum chai calculate huncha.
+
+        Wallah !
+
+
+    2) What's the average sale price by region and year ?
+
+    # How to do this ? What's the concept behind it ??
+
+        ==> At first, Pivot table ma kun "Field/Column" ko basis ma gropuing garne ho tyo field lai drag garera "Rows" vanni section ma rakhne.
+
+        ==> And then, yedi timali kunai "Field/column" ko each or every breakdown ko data hernu cha vani, tyo field/column lai drag garera "Columns" section ma rakhne.
+
+        ==> And then, kun "Field/column" ko values ma kei calculation(eg: sum, average, %) garne ho tyo field/column lai drag garera "Values" section ma rakhne.
+        NOTE: By Default, kunai pani value ko Sum chai calculate huncha.
+        
+        ==> But, if u want to change the calculation, Left click on the dropdown arrow of the column inside "Values" section.
+        
+        ==> Multiple options will appear, choose last one "Value Field Settings".
+
+        ==> "Value Field Settings" dialog box will appear.
+
+        ==> Then, Choose whatever calculation option u need, now in this scenario we need "Average".
+            so, select "Average" and click "OK" button.
+
+        Wallah !
+
+    
+    3) Show me the profits by Region.
+
+    # How to do this ? What's the concept behind it ??
+
+        ==> At first, Pivot table ma kun "Field/Column" ko basis ma gropuing garne ho tyo field lai drag garera "Rows" vanni section ma rakhne.
+
+        ==> And then, kun "Field/column" ko values ma kei calculation(eg: sum, average, %) garne ho tyo field/column lai drag garera "Values" section ma rakhne.
+
+        ==> Now, if we don't have any column (eg profit) in our dataset, so we can't have profit field in the pivot table.
+        So, to create profit field on pivot table, at first we have to create new Calculated Field.
+
+            How to create/insert new calculated field ?
+
+                ==> Click on "Analyze" excel ribbon tab.
+
+                ==> Click on "Fields, Items & Sets" dropdown, just below the ribbon tab.
+
+                ==> Choose "Calculated Field"
+
+                ==> "Insert Calculated Field" dialog box will appear.
+
+                ==> Give Name to this new creating field (eg: Profit).
+
+                ==> Set ur custom formula to genrate the values of this new field.
+                    (for eg:  = Revenues-Expenses)
+                
+                ==> Click on "OK" button.
+
+
+    4) Show generated Pivot table in chart ??
+
+        ==> Click on "Analyze" in excel ribbon tab.
+
+        ==> Click on "Pivot Chart" Icon.
+
+        ==> "Insert Chart" dialog box will appear.
+
+        ==> Choose any of the chart u like, and click "OK" button.
+
+        ==> If u want to remove any unnecesary fields from the chart then:
+            ==> Click on"Field Buttons" Icon(ie Funnel type icon) inside "Analyze" excel ribbon tab.
+        
+        Wallah !
+
+        ==> If u want to rename the Legend:
+            ==> Inside the "PivotChart Fields", in the value section.
+            ==> click on drop down of each field and choose "Value Field Settings".
+            ==> Keep another custom name (i.e not u have to keep a single space before the new name, otherwise error will be thrown)
+            ==> Click on "OK" button.
+        
+        Wallah !
+    
+    
+
+    5) What's the quantity sold by various sales method & on various product ?
+
+        ==> At first, Pivot table ma kun "Field/Column" ko basis ma gropuing garne ho tyo field lai drag garera "Rows" vanni section ma rakhne.
+        ==> Then, Pivot table ma kunai "Field/Column" ko basis ma sub-gropuing garnu  cha vani, tyo column lai pani "Rows" section ma nai rakhne.
+
+        ==> And then, yedi timali kunai "Field/column" ko each or every breakdown ko data hernu cha vani, tyo field/column lai drag garera "Columns" section ma rakhne.
+
+        ==> Since Quantity Sold ko detailed value hernu cha so, tei vayera "Values" section vitra rakheko.
+    
+
+    6) Apply some design to the pivot table.
+
+        ==> To apply some design :
+        ==> Click on "Design" excel ribbon tab.
+        ==> Choose any design layout u want.
+
+            OR
+        
+        Apply your own custon layout theme color to pivot table ?
+
+            ==> At first, for eg:
+                ==> select heading area & pres "Alt" + "H H" seperately
+
+                ==> To change the color of the text:
+                    press "Alt" + "H" "FC" seperately
+                
