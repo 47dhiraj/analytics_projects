@@ -73,19 +73,68 @@ FROM
 
 -- Update/Changes by keeping previous Address column untouched and creating two new columns Street and City
 
--- First adding new 'Street' column
+-- # 1st) For PropertyAddress
+
+-- First adding new 'PropertyStreet' column
 alter table portfolioproject.nashvillehousing
-add Street Nvarchar(255);
+add PropertyStreet Nvarchar(255);
 
--- Secondly, adding new 'City' column
+-- Secondly, adding new 'PropertyCity' column
 alter table portfolioproject.nashvillehousing
-add City Nvarchar(255);
+add PropertyCity Nvarchar(255);
 
 
--- Actual query to save the seperated address to Street and City column
+-- (For MySQL database) Actual query to save the seperated address to Street and City column
 UPDATE portfolioproject.nashvillehousing
-SET Street = SUBSTRING_INDEX(PropertyAddress, ',', 1),
-City = TRIM(SUBSTRING_INDEX(PropertyAddress, ',', -1));
+SET PropertyStreet = SUBSTRING_INDEX(PropertyAddress, ',', 1),
+PropertyCity = TRIM(SUBSTRING_INDEX(PropertyAddress, ',', -1));
+
+-- (For Microsoft SQL Server) Actual query to save the seperated address to Street and City column
+UPDATE portfolioproject.nashvillehousing
+SET PropertyStreet = LEFT(PropertyAddress, CHARINDEX(',', PropertyAddress + ',') - 1),
+PropertyCity = LTRIM(RTRIM(SUBSTRING(PropertyAddress, CHARINDEX(',', PropertyAddress) + 1, LEN(PropertyAddress))));
+
+
+
+
+-- # 2nd) For OwnerAddress
+
+-- First adding new 'OwnerStreet' column
+alter table portfolioproject.nashvillehousing
+add OwnerStreet Nvarchar(255);
+
+-- Second, adding new 'OwnerCity' column
+alter table portfolioproject.nashvillehousing
+add OwnerCity Nvarchar(255);
+
+-- Third, adding new 'OwnerState' column
+alter table portfolioproject.nashvillehousing
+add OwnerState Nvarchar(255);
+
+
+-- (For MySQL Database) Actual query to save the seperated address to Street, City and State columns
+UPDATE portfolioproject.nashvillehousing
+SET 
+    OwnerStreet = SUBSTRING_INDEX(REPLACE(OwnerAddress, ',', '.'), '.', -1),
+    OwnerCity = SUBSTRING_INDEX(SUBSTRING_INDEX(REPLACE(OwnerAddress, ',', '.'), '.', -2), '.', 1),
+    OwnerState = SUBSTRING_INDEX(SUBSTRING_INDEX(REPLACE(OwnerAddress, ',', '.'), '.', -3), '.', 1);
+
+
+```
+    This MySQL query uses REPLACE to replace commas with dots and then SUBSTRING_INDEX to extract the desired parts.
+    The negative values in SUBSTRING_INDEX represent counting from the end of the string. 
+    The -1 gets the last part, the -2 gets the second-to-last part, and so on.
+
+    NOTE: MySQL uses 1-based indexing for SUBSTRING_INDEX.
+```
+
+
+-- (For Microsoft SQL Server) Actual query to save the seperated address to OwnerStreet, OwnerCity and OwnerState columns
+UPDATE PortfolioProject.dbo.NashvilleHousing
+SET 
+    OwnerStreet = PARSENAME(REPLACE(OwnerAddress, ',', '.'), 3)
+    OwnerCity = PARSENAME(REPLACE(OwnerAddress, ',', '.'), 2),
+    OwnerState = PARSENAME(REPLACE(OwnerAddress, ',', '.'), 1);
 
 
 
