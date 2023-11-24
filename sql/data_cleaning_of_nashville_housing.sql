@@ -217,9 +217,17 @@ WHERE (ParcelID, PropertyAddress, SalePrice, LegalReference) IN (
 
 ---------------------------------------------------------------------------------------------------------
 
--- Delete Unused Columns
+-- Delete unnecessary/not required/unused Columns
 
+-- Visualize all column before deleting
+Select * From PortfolioProject.NashvilleHousing
 
+-- Actual query to Drop/Delete multiple unrequired columns at once
+ALTER TABLE PortfolioProject.NashvilleHousing
+DROP COLUMN OwnerAddress,
+DROP COLUMN PropertyAddress,
+DROP COLUMN TaxDistrict,
+DROP COLUMN SaleDate;
 
-
-
+-- see if the colulmns are deleted
+Select * From PortfolioProject.NashvilleHousing
