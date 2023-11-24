@@ -115,15 +115,15 @@ add OwnerState Nvarchar(255);
 -- (For MySQL Database) Actual query to save the seperated address to Street, City and State columns
 UPDATE portfolioproject.nashvillehousing
 SET 
-    OwnerStreet = SUBSTRING_INDEX(REPLACE(OwnerAddress, ',', '.'), '.', -1),
+    OwnerStreet = SUBSTRING_INDEX(SUBSTRING_INDEX(REPLACE(OwnerAddress, ',', '.'), '.', -3), '.', 1),
     OwnerCity = SUBSTRING_INDEX(SUBSTRING_INDEX(REPLACE(OwnerAddress, ',', '.'), '.', -2), '.', 1),
-    OwnerState = SUBSTRING_INDEX(SUBSTRING_INDEX(REPLACE(OwnerAddress, ',', '.'), '.', -3), '.', 1);
+    OwnerState = SUBSTRING_INDEX(REPLACE(OwnerAddress, ',', '.'), '.', -1);
 
 
 ```
     This MySQL query uses REPLACE to replace commas with dots and then SUBSTRING_INDEX to extract the desired parts.
     The negative values in SUBSTRING_INDEX represent counting from the end of the string. 
-    The -1 gets the last part, the -2 gets the second-to-last part, and so on.
+    The -1 gets the last part, the -2 gets the second last part and -2 gets the first part (i.e seperating in reverse order because we want to sepearte in reverse way).
 
     NOTE: MySQL uses 1-based indexing for SUBSTRING_INDEX.
 ```
