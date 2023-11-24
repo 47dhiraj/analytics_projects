@@ -49,12 +49,11 @@ AND a.`UniqueID` <> b.`UniqueID`                                        -- <> va
 WHERE a.PropertyAddress IS NULL;                                        -- a.PropertyAddress NULL pani vako case huna paryo, ball join garni, natra nagarni
 
 -- Actually updating/making the changes
-Update a
-SET PropertyAddress = COALESCE(a.PropertyAddress,b.PropertyAddress)
-FROM PortfolioProject.NashvilleHousing a
+UPDATE PortfolioProject.NashvilleHousing a
 JOIN PortfolioProject.NashvilleHousing b ON a.ParcelID = b.ParcelID
 AND a.`UniqueID` <> b.`UniqueID`
-WHERE a.PropertyAddress IS NULL; 
+SET a.PropertyAddress = COALESCE(a.PropertyAddress, b.PropertyAddress)  --  MySQL ko COALESCE() is equivalent to ISNULL() in SQL Server 
+WHERE a.PropertyAddress IS NULL;
 
 --------------------------------------------------------------------------------------------------------------------------
 
