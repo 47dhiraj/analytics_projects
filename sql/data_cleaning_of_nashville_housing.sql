@@ -7,15 +7,25 @@
 
 
 
--- Select All Data from nashvillehousing
+-- For Selecting All Data from nashvillehousing
 select * from portfolioproject.nashvillehousing;
 
 
+-- For Selecting only particular column
+select SaleDate from portfolioproject.nashvillehousing;
 
 
 --------------------------------------------------------------------------------------------------------------------------
+-- Standardize Date Format (i.e Converting String Date Format to actual Date Format)
+SELECT SaleDate, DATE_FORMAT(STR_TO_DATE(SaleDate, '%M %d, %Y'), '%Y-%m-%d') AS formatted_date
+FROM PortfolioProject.nashvillehousing;
 
--- Standardize Date Format (i.e Convert Data Time Format to )
+
+-- To Actually make Changes/Update the existing saleDate column by Date Formatted column data
+UPDATE PortfolioProject.nashvillehousing
+SET SaleDate = DATE_FORMAT(STR_TO_DATE(SaleDate, '%M %d, %Y'), '%Y-%m-%d');
+
+
 
 
 
