@@ -57,14 +57,35 @@ WHERE a.PropertyAddress IS NULL;
 
 --------------------------------------------------------------------------------------------------------------------------
 
+-- Breaking/Seperating out Property Address into seperate/individual Columns like (Street, City) 
+
+SELECT 
+    SUBSTRING_INDEX(PropertyAddress, ',', 1) AS Street,
+    TRIM(SUBSTRING_INDEX(PropertyAddress, ',', -1)) AS City
+FROM 
+    portfolioproject.nashvillehousing;
+
+```
+    Here's a breakdown of the query:
+    SUBSTRING_INDEX(PropertyAddress, ',', 1): This extracts the part of the address before the first comma.
+    TRIM(SUBSTRING_INDEX(PropertyAddress, ',', -1)): This extracts the part of the address after the last comma and removes any leading or trailing spaces using the TRIM() function.
+```
+
+-- Update/Changes by keeping previous Address column untouched and creating two new columns Street and City
+
+-- First adding new 'Street' column
+alter table portfolioproject.nashvillehousing
+add Street Nvarchar(255);
+
+-- Secondly, adding new 'City' column
+alter table portfolioproject.nashvillehousing
+add City Nvarchar(255);
 
 
--- Breaking/Seperating out Property Address into seperate/individual Columns like (Address, City, State) 
-
-
-
-
-
+-- Actual query to save the seperated address to Street and City column
+UPDATE portfolioproject.nashvillehousing
+SET Street = SUBSTRING_INDEX(PropertyAddress, ',', 1),
+City = TRIM(SUBSTRING_INDEX(PropertyAddress, ',', -1));
 
 
 
