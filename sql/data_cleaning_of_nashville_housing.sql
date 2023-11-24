@@ -37,8 +37,12 @@ select PropertyAddress from portfolioproject.nashvillehousing;
 -- Finding if there is NULL value in any sepecific column(eg: PropertyAddress) or not
 select PropertyAddress from portfolioproject.nashvillehousing where PropertyAddress is null;
 
+-- Easy way of filling NULL values
+UPDATE portfolioproject.nashvillehousing SET PropertyAddress = 'No PropertyAddress' WHERE PropertyAddress IS NULL;
 
--- Excellent way to find if there is NULL in any column due to repetation of data in subsequent another row
+
+-- Advance way of replacing Null value of a column by another column value
+-- For finding if there is NULL in any column due to repetation of data in subsequent another row
 SELECT a.ParcelID, a.PropertyAddress, b.ParcelID, b.PropertyAddress, 
 COALESCE(a.PropertyAddress, b.PropertyAddress)                          -- COALESCE() vannale isnull ho i.e a.PropertyAddress null cha vani, b.PropertyAdress ko value le replace garni vaneko
 FROM PortfolioProject.NashvilleHousing a
@@ -53,9 +57,10 @@ AND a.`UniqueID` <> b.`UniqueID`
 SET a.PropertyAddress = COALESCE(a.PropertyAddress, b.PropertyAddress)  --  MySQL ko COALESCE() is equivalent to ISNULL() in SQL Server 
 WHERE a.PropertyAddress IS NULL;
 
+
 --------------------------------------------------------------------------------------------------------------------------
 
--- Breaking/Seperating out Property Address into seperate/individual Columns like (Street, City) 
+-- Breaking/Seperating out Property Address into two seperate/individual Columns like (Street, City) 
 
 SELECT 
     SUBSTRING_INDEX(PropertyAddress, ',', 1) AS Street,
@@ -175,8 +180,12 @@ ORDER BY CountSoldAsVacant;
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Only selecting Distinct Rows from table
+-- (also a good way to remove Duplicate Rows)
+SELECT DISTINCT * FROM your_table;
 
--- Remove Duplicates (i.e  keep a single instance of each set of duplicate rows and remove the rest)
+
+-- More risky way of removing Duplicates (i.e  keep a single instance of each set of duplicate rows and remove the rest)
 -- Removing Duplicates is rarely used in SQL (and it is risky deleting data too)
 
 -- MYSQL SYNTAX: 
@@ -231,3 +240,31 @@ DROP COLUMN SaleDate;
 
 -- see if the colulmns are deleted
 Select * From PortfolioProject.NashvilleHousing
+
+
+
+---------------------------------------------------------------------------------------------------------
+-- Standardizing Text Data
+
+-- To Upper case (capital letter)
+UPDATE portfolioproject.nashvillehousing SET LandUse = UPPER(LandUse);
+
+-- To Lower case (small letter)
+UPDATE portfolioproject.nashvillehousing SET LandUse = LOWER(LandUse);
+
+
+-- To camel case (first letter capital, other small letter)
+
+-- SYNTAX:
+UPDATE portfolioproject.nashvillehousing
+SET column_name = CONCAT(
+    UPPER(SUBSTRING(column_name, 1, 1)),
+    LOWER(SUBSTRING(column_name, 2, CHAR_LENGTH(column_name) - 1))
+);
+
+-- EXAMPLE:
+UPDATE portfolioproject.nashvillehousing
+SET LandUse = CONCAT(
+    UPPER(SUBSTRING(LandUse, 1, 1)),
+    LOWER(SUBSTRING(LandUse, 2, CHAR_LENGTH(LandUse) - 1))
+);
