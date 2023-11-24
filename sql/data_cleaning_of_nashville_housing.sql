@@ -1,7 +1,5 @@
 /*
-
     Data Cleaning using SQL Queries
-
 */
 
 
@@ -140,9 +138,38 @@ SET
 
 --------------------------------------------------------------------------------------------------------------------------
 
+-- Change Y and N to Yes and No in "SoldAsVacant" field
 
--- Change Y and N to Yes and No in "Sold as Vacant" field
 
+-- First doing GroupBy counting  (For having better understanding before doing something)
+SELECT distinct(SoldAsVacant), COUNT(SoldAsVacant) AS CountSoldAsVacant
+FROM PortfolioProject.NashvilleHousing
+GROUP BY SoldAsVacant
+ORDER BY CountSoldAsVacant;
+
+
+-- Now, (For MySQL) Actually changing Y to Yes and N to No, using CASE statment
+UPDATE PortfolioProject.NashvilleHousing
+SET SoldAsVacant = CASE 
+                    WHEN SoldAsVacant = 'Y' THEN 'Yes'
+                    WHEN SoldAsVacant = 'N' THEN 'No'
+                    ELSE SoldAsVacant
+                END;
+
+-- Alternative(For Microsof SQL Server) Actually changing Y to Yes and N to No, using CASE statment
+Update PortfolioProjectNashvilleHousing
+SET SoldAsVacant = CASE 
+                    When SoldAsVacant = 'Y' THEN 'Yes'
+                    When SoldAsVacant = 'N' THEN 'No'
+                    ELSE SoldAsVacant
+                END;
+
+
+-- Finally, u can see/visualize if changed properly or not like earlier
+SELECT distinct(SoldAsVacant), COUNT(SoldAsVacant) AS CountSoldAsVacant
+FROM PortfolioProject.NashvilleHousing
+GROUP BY SoldAsVacant
+ORDER BY CountSoldAsVacant;
 
 
 
