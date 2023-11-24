@@ -176,10 +176,41 @@ ORDER BY CountSoldAsVacant;
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
--- Remove Duplicates
+-- Remove Duplicates (i.e  keep a single instance of each set of duplicate rows and remove the rest)
+-- Removing Duplicates is rarely used in SQL (and it is risky deleting data too)
 
+-- MYSQL SYNTAX: 
+```
+    DELETE FROM your_table
+    WHERE (column1, column2, column3) IN (
+        SELECT column1, column2, column3
+        FROM (
+            SELECT
+                column1,
+                column2,
+                column3,
+                ROW_NUMBER() OVER (PARTITION BY column1, column2, column3 ORDER BY id) AS row_num
+            FROM your_table
+        ) AS t
+        WHERE row_num > 1
+    );
+```
 
-
+-- MySQL Example: 
+DELETE FROM portfolioproject.nashvillehousing
+WHERE (ParcelID, PropertyAddress, SalePrice, LegalReference) IN (
+    SELECT ParcelID, PropertyAddress, SalePrice, LegalReference
+    FROM (
+        SELECT
+            ParcelID,
+            PropertyAddress,
+            SalePrice,
+            LegalReference,
+            ROW_NUMBER() OVER (PARTITION BY ParcelID, PropertyAddress, SalePrice, LegalReference ORDER BY UniqueID) AS row_num
+        FROM portfolioproject.nashvillehousing
+    ) AS t
+    WHERE row_num > 1
+);
 
 
 
